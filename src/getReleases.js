@@ -2,7 +2,7 @@ const request = require('superagent');
 
 const name = 'fetch-github-release';
 
-export default function getReleases(user, repo, token) {
+module.exports = function getReleases(user, repo, token) {
   const url = `https://api.github.com/repos/${user}/${repo}/releases`;
 
   return new Promise((resolve, reject) => {

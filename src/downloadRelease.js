@@ -54,7 +54,7 @@ function downloadRelease(
         if (!fs.existsSync(destf)) {
           const dest = fs.createWriteStream(destf);
 
-          return download(asset.url, dest, progress)
+          return download(asset.url, token, dest, progress)
             .then(() => {
               if (!leaveZipped && /\.zip$/.exec(destf)) {
                 return extract(destf, outputdir).then(() => fs.unlinkSync(destf));
@@ -69,4 +69,4 @@ function downloadRelease(
     });
 }
 
-export default downloadRelease;
+module.exports = downloadRelease;

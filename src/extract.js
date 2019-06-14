@@ -1,6 +1,6 @@
-import extractZip from 'extract-zip';
+const extractZip = require('extract-zip');
 
-export default function extract(source, dir) {
+module.exports = function extract(source, dir) {
   return new Promise((resolve, reject) => {
     extractZip(source, { dir }, (err) => {
       if (err) {

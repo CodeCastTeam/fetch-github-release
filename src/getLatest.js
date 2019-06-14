@@ -2,7 +2,7 @@ function pass() {
   return true;
 }
 
-export default function getLatest(releases, filterRelease = pass, filterAsset = pass) {
+module.exports = function getLatest(releases, filterRelease = pass, filterAsset = pass) {
   const filtered = releases.filter(filterRelease);
 
   if (!filtered.length) {

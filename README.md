@@ -16,60 +16,20 @@ electron-v1.3.1-darwi... ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇�
 ffmpeg-v1.3.1-darwin-... ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 0.0s
 ```
 
-This is useful for instance if you have a project that depends on binaries
-released via Github.
-
-## Command line
-
-### Installation
-
-```bash
-npm install -g @terascope/fetch-github-release
-# or
-yarn global add @terascope/fetch-github-release
-```
-
-### Usage
-
-```
-Usage: fetch-github-release [options] <user> <repo> [outputdir]
-
-Options:
-  -V, --version          output the version number
-  -p, --prerelease       download prerelease
-  -s, --search <regexp>  filter assets name
-  -q, --quiet            don't log to console
-  -z, --zipped           don't extract zip files
-  -h, --help             output usage information
-```
-
-### Example
-
-Download `electron/electron` assets whose name contains `darwin-x64` to `/tmp`.
-
-```
-$ fetch-github-release -s darwin-x64 electron electron /tmp
-```
-
-If you need to download assets from a private repository or you need to avoid rate limits, you can set the environment variable `GITHUB_TOKEN`. To generate a token go to your Github [settings](https://github.com/settings/tokens) and a token with `public_repo` or `repo` (for private repos) permissions.
 
 ## API
 
-### Installation
-
-```bash
-npm install --save @terascope/fetch-github-release
-# or
-yarn add @terascope/fetch-github-release
-```
-
 ### Usage
 
+If you need to download assets from a private repository or you need to avoid rate limits, you can pass an option token for the request. To generate a token go to your Github [settings](https://github.com/settings/tokens) and a token with `public_repo` or `repo` (for private repos) permissions.
+
+
 ```javascript
-const downloadRelease = require('@terascope/fetch-github-release');
+const downloadRelease = require('fetch-github-release');
 
 const user = 'some user';
 const repo = 'some repo';
+const token = process.env.GITHUB_TOKEN
 const outputdir = 'some output directory';
 const leaveZipped = false;
 const disableLogging = false;
@@ -86,7 +46,7 @@ function filterAsset(asset) {
   return asset.name.indexOf('windows') >= 0;
 }
 
-downloadRelease(user, repo, outputdir, filterRelease, filterAsset, leaveZipped, disableLogging)
+downloadRelease(user, repo, token, outputdir, filterRelease, filterAsset, leaveZipped, disableLogging)
   .then(function() {
     console.log('All done!');
   })
@@ -97,9 +57,3 @@ downloadRelease(user, repo, outputdir, filterRelease, filterAsset, leaveZipped, 
 
 `downloadRelease` returns an array of file paths to all of the files downloaded
 if called with `leaveZipped = true`.
-
-## TODO
-
-- other compression formats
-- option to download specific release instead of latest?
-- option to download source?

@@ -1,11 +1,11 @@
 {
-  "name": "@terascope/fetch-github-release",
+  "name": "fetch-github-release",
   "publishConfig": {
     "access": "public"
   },
   "version": "0.6.0",
   "description": "",
-  "main": "lib/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "mocha --require babel-polyfill --compilers js:babel-register --require should --recursive",
     "test:cov": "babel-node ./node_modules/isparta/bin/isparta cover ./node_modules/mocha/bin/_mocha -- --recursive --require should --require should",
@@ -18,12 +18,9 @@
     "postversion": "git push && git push --tags && npm run clean",
     "prepublishOnly": "npm run clean && npm run build:lib"
   },
-  "bin": {
-    "fetch-github-release": "bin/fetch-github-release"
-  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/terascope/fetch-github-release.git"
+    "url": "https://github.com/CodeCastTeam/fetch-github-release.git"
   },
   "keywords": [
     "github",
@@ -33,7 +30,7 @@
   "author": "Stephan Florquin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/terascope/fetch-github-release/issues"
+    "url": "https://github.com/CodeCastTeam/fetch-github-release/issues"
   },
   "dependencies": {
     "commander": "^2.9.0",

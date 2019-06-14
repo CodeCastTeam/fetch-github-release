@@ -1,16 +1,15 @@
-import request from 'superagent';
-import { name } from '../package.json';
+const request = require('superagent');
 
-const { GITHUB_TOKEN } = process.env;
+const name = 'fetch-github-release';
 
-export default function getReleases(user, repo) {
+export default function getReleases(user, repo, token) {
   const url = `https://api.github.com/repos/${user}/${repo}/releases`;
 
   return new Promise((resolve, reject) => {
     const r = request.get(url);
     r.set('User-Agent', name);
-    if (GITHUB_TOKEN) {
-      r.set('Authorization', `token ${GITHUB_TOKEN}`);
+    if (token) {
+      r.set('Authorization', `token ${token}`);
     }
     r.end((err, res) => {
       if (err) {

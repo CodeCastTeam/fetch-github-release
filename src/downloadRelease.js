@@ -1,12 +1,12 @@
-import os from 'os';
-import fs from 'fs';
-import path from 'path';
-import MultiProgress from 'multi-progress';
-import getReleases from './getReleases';
-import getLatest from './getLatest';
-import download from './download';
-import extract from './extract';
-import rpad from './rpad';
+const os = require('os');
+const fs = require('fs');
+const path = require('path');
+const MultiProgress = require('multi-progress');
+const getReleases = require('./getReleases');
+const getLatest = require('./getLatest');
+const download = require('./download');
+const extract = require('./extract');
+const rpad = require('./rpad');
 
 function pass() {
   return true;
@@ -15,6 +15,7 @@ function pass() {
 function downloadRelease(
   user,
   repo,
+  token,
   outputdir,
   filterRelease = pass,
   filterAsset = pass,
@@ -23,7 +24,7 @@ function downloadRelease(
 ) {
   const bars = new MultiProgress(process.stdout);
 
-  return getReleases(user, repo)
+  return getReleases(user, repo, token)
     .then(releases => getLatest(releases, filterRelease, filterAsset))
     .then((release) => {
       if (!release) {
